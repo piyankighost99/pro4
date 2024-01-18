@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Name Display</title>
-    
+    <title><pre>እቁብ</pre></title>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .random-box {
@@ -18,6 +18,19 @@
         .generate-btn {
             margin-top: 10px;
         }
+
+        @keyframes winnerAnimation {
+            0% { transform: rotate(0); }
+            20% { transform: rotate(10deg); }
+            40% { transform: rotate(-10deg); }
+            60% { transform: rotate(5deg); }
+            80% { transform: rotate(-5deg); }
+            100% { transform: rotate(0); }
+        }
+
+        .celebrate-winner {
+            animation: winnerAnimation 1s ease-in-out;
+        }
     </style>
 </head>
 
@@ -27,20 +40,20 @@
         <div class="col-md-6">
             <form id="nameForm">
                 <div class="form-group">
-                    <label for="nameInput">Ekub Members</label>
-                    <input type="text" class="form-control" id="nameInput" placeholder="Enter a name" required>
+                    <label for="nameInput"><pre>ሙሉ ስም ያስገቡ!</pre></label>
+                    <input type="text" class="form-control" id="nameInput" placeholder="" required>
                 </div>
-                <button type="button" class="btn btn-primary" onclick="addName()">Add Name</button>
+                <button type="button" class="btn btn-primary" onclick="addName()"><pre>የእቁብ አባላት ስም ዝርዝር</pre></button>
 
                 <ul id="nameList" class="list-group mt-3"></ul>
             </form>
         </div>
 
-        
+
         <div class="col-md-6">
             <div class="card generate-btn">
                 <div class="card-body">
-                    <button type="button" class="btn btn-success" onclick="displayRandomName()">The winner of this Month will be vvVvv</button>
+                    <button type="button" class="btn btn-success" onclick="displayRandomName()"><pre>የዚህ ወር የእኩብ የእጣ አሸናፊ የሆነው ፦</pre></button>
                 </div>
             </div>
 
@@ -81,9 +94,18 @@
             if (nameList.length > 0) {
                 const randomIndex = Math.floor(Math.random() * nameList.length);
                 const randomName = nameList[randomIndex];
-                randomBox.textContent = `The winner is: ${randomName}`;
+                randomBox.textContent = `እንኳን ደስ አልዎት፦: ${randomName}`;
+
+
+                // Add celebration class
+                randomBox.classList.add('celebrate-winner');
+
+                // Remove celebration class after animation ends
+                randomBox.addEventListener('animationend', () => {
+                    randomBox.classList.remove('celebrate-winner');
+                });
             } else {
-                randomBox.textContent = 'List is empty';
+                randomBox.textContent = 'የአባላት ስም ዝርዝሩ ባዶ ነው ፤ በትክክል ይሙሉ!!!';
             }
         }
     </script>
