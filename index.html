@@ -7,16 +7,31 @@
     <title>Equeb</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
     <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+
+        .header {
+            background-color: #007bff;
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+        }
+
         .random-box {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-top: 10px;
+            border: 2px solid #007bff;
+            padding: 20px;
+            margin-top: 20px;
             font-weight: bold;
+            text-align: center;
         }
 
         .generate-btn {
-            margin-top: 10px;
+            margin-top: 20px;
         }
 
         @keyframes winnerAnimation {
@@ -35,25 +50,25 @@
 </head>
 
 <body class="container mt-4">
+    <div class="header">
+        <h1>እንኳን ወደ እቁብ አባል ለመሆን በደና መጡ</h1>
+    </div>
     <div class="row">
-        <!-- Left side with "Enter Name" form -->
         <div class="col-md-6">
             <form id="nameForm">
                 <div class="form-group">
-                    <label for="nameInput"><pre>ሙሉ ስም ያስገቡ!</pre></label>
+                    <label for="nameInput">ሙሉ ስም ያስገቡ!</label>
                     <input type="text" class="form-control" id="nameInput" placeholder="" required>
                 </div>
-                <button type="button" class="btn btn-primary" onclick="addName()"><pre>የእቁብ አባላት ስም ዝርዝር</pre></button>
-
+                <button type="button" class="btn btn-primary" onclick="addName()">የእቁብ አባላት ስም ዝርዝር</button>
                 <ul id="nameList" class="list-group mt-3"></ul>
             </form>
         </div>
 
-
         <div class="col-md-6">
             <div class="card generate-btn">
                 <div class="card-body">
-                    <button type="button" class="btn btn-success" onclick="displayRandomName()"><pre>የዚህ ወር የእኩብ የእጣ አሸናፊ የሆነው ፦</pre></button>
+                    <button type="button" class="btn btn-success" onclick="displayRandomName()">የዚህ ወር የእኩብ የእጣ አሸናፊ የሆነው ፦</button>
                 </div>
             </div>
 
@@ -61,54 +76,49 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS and Popper.js -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-        const nameList = [];
+    const nameList = [];
 
-        function addName() {
-            const nameInput = document.getElementById('nameInput');
-            const nameListElement = document.getElementById('nameList');
+    function addName() {
+        const nameInput = document.getElementById('nameInput');
+        const nameListElement = document.getElementById('nameList');
 
-            const newName = nameInput.value.trim();
+        const newName = nameInput.value.trim();
 
-            if (newName !== '') {
-                nameList.push(newName);
+        if (newName !== '') {
+            nameList.push(newName);
 
-                // Update the list
-                const listItem = document.createElement('li');
-                listItem.classList.add('list-group-item');
-                listItem.textContent = newName;
-                nameListElement.appendChild(listItem);
+            const listItem = document.createElement('li');
+            listItem.classList.add('list-group-item');
+            listItem.textContent = newName;
+            nameListElement.appendChild(listItem);
 
-                // Clear the input
-                nameInput.value = '';
-            }
+            nameInput.value = '';
         }
+    }
 
-        function displayRandomName() {
-            const randomBox = document.getElementById('randomNameBox');
-            if (nameList.length > 0) {
-                const randomIndex = Math.floor(Math.random() * nameList.length);
-                const randomName = nameList[randomIndex];
-                randomBox.textContent = `እንኳን ደስ አልዎት፦: ${randomName}`;
+    function displayRandomName() {
+        const randomBox = document.getElementById('randomNameBox');
+        if (nameList.length > 0) {
+            const randomIndex = Math.floor(Math.random() * nameList.length);
+            const randomName = nameList[randomIndex];
+            randomBox.textContent = `እንኳን ደስ አልዎት፦ ${randomName}`;
 
+            randomBox.classList.add('celebrate-winner');
 
-                // Add celebration class
-                randomBox.classList.add('celebrate-winner');
-
-                // Remove celebration class after animation ends
-                randomBox.addEventListener('animationend', () => {
-                    randomBox.classList.remove('celebrate-winner');
-                });
-            } else {
-                randomBox.textContent = 'የአባላት ስም ዝርዝሩ ባዶ ነው ፤ በትክክል ይሙሉ!!!';
-            }
+            randomBox.addEventListener('animationend', () => {
+                randomBox.classList.remove('celebrate-winner');
+            });
+        } else {
+            randomBox.textContent = 'የአባላት ስም ዝርዝሩ ባዶ ነው ፤ በትክክል ይሙሉ!!!';
         }
-    </script>
+    }
+</script>
+
 </body>
 
 </html>
